@@ -1,0 +1,12 @@
+1. Lý do nên sử dụng multistage build trong Dockerfile là vì:
+ - Tiết kiệm tài nguyên, thay vì build nhiều image cùng 1 lúc thì chỉ cần 1 Dockerfile có thể build được
+
+2. Pipiline CI/CD
+ - Khi Dev push code lên nhánh được chỉ định thì quy trình CI sẽ được thực hiện, CI sẽ làm những việc như sau, checkout code từ nhánh main về máy
+   runner sau đó cài những tài nguyên được chỉ định trong file ci.yml tiếp đến thực hiện những bước test, nếu thành công thì sẽ build đoạn đó thành
+   1 image sau đó gửi lên môi trường staging. Sau khi gửi được lên môi trường staging thì đến bước CD, bước CD sẽ gồm 2 lựa chọn Continue delivery và continue development,
+   nếu cấu hình là continue delivery thì đoạn image được chờ ở giai đoạn staging đó sẽ cần phải được cấp phép để builđ lên môi trường production,
+   ngược lại nếu chọn continue development thì đoạn image được chờ ở môi trường staging sẽ được gửi thẳng lên production 
+
+3. - Cách mà sonarqube quality tích hợp vào Pipeline: đầu tiên cài sonarqube -> cấu hình sonarqube -> tích hợp vào flow CI
+   - Nếu gate fail trog sonarqube: theo như tôi setting là thì sẽ không cho phép triển khai image lên môi trường production hay staging
