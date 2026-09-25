@@ -26,7 +26,6 @@ services:
     image: ${DOCKERHUB_USERNAME:-maihoanglan}/user-management-backend:${IMAGE_TAG:-1ae8b3a6f9bd39d768cefb20fb2e06d3a2e2a68f}
     environment:
       DATABASE_URL: mysql+pymysql://${MYSQL_USER:-app_user}:${MYSQL_PASSWORD:-app_password}@db:3306/${MYSQL_DATABASE:-user_management}
-      CORS_ORIGINS: http://localhost:3000
     depends_on:
       db:
         condition: service_healthy
@@ -40,20 +39,6 @@ services:
           "-c",
           "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')",
         ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
-  frontend:
-    image: ${DOCKERHUB_USERNAME:-maihoanglan}/user-management-frontend:${IMAGE_TAG:-1ae8b3a6f9bd39d768cefb20fb2e06d3a2e2a68f}
-    depends_on:
-      backend:
-        condition: service_healthy
-    ports:
-      - "${FRONTEND_PORT:-3000}:80"
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost/"]
       interval: 10s
       timeout: 5s
       retries: 5
