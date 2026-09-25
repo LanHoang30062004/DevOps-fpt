@@ -10,3 +10,5 @@
 
 3. - Cách mà sonarqube quality tích hợp vào Pipeline: đầu tiên cài sonarqube -> cấu hình sonarqube -> tích hợp vào flow CI
    - Nếu gate fail trog sonarqube: theo như tôi setting là thì sẽ không cho phép triển khai image lên môi trường production hay staging
+
+4. Test
